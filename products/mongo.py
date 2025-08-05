@@ -3,4 +3,4 @@ from django.conf import settings
 
 client = MongoClient(settings.MONGO_URI)
 db = client[settings.MONGO_DB_NAME]
-product_collection = db["products"]
+product_collection = db["product details"]

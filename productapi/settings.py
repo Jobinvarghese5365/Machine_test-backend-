@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
+from pymongo import MongoClient
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -87,9 +92,17 @@ WSGI_APPLICATION = 'productapi.wsgi.application'
 # }
 
 # settings.py
-MONGO_URI = "mongodb://localhost:27017"
-MONGO_DB_NAME = "myproducts"
+MONGO_URI = os.environ.get("MONGO_URI")
+client = MongoClient(MONGO_URI)
 
+# List all databases to test connection
+print("Databases:", client.list_database_names())
+
+# Optional: List collections in a specific database
+db = client["machine_test"]  # change to your db name
+print("Collections:", db.list_collection_names())
+
+MONGO_DB_NAME = "machine_test"
 
 
 # Password validation
